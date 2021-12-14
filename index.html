@@ -44,15 +44,16 @@
     <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center" id="header">
         <div class="bg-image"></div>
         <div class="bg-text">
-            <h1>Type like Chedwin</h1>
-            <p>Have you ever wished you where as cool as him? Now you can be!</p>
+            <h1>T y p e   L i k e   C h e d w i n</h1>
+            <p>H a v e   Y o u   E v e r   W i s h e d   Y o u   W h e r e   A s   C o o l   A s   H i m?   N o w   Y o u   C a n   B e!</p>
+            <p>T h i s   T o o l   W a s   C r e a t e d   B e c a u s e   <a target="_blank" href="https://www.twitch.tv/thechedwin">T h e C h e d w i n</a>     C a m e   I n t o   <a target="_blank" href="https://www.twitch.tv/vombuz">V o m b u z' S</a>   C h a t   T y p i n g   L i k e   T h i s,   B u t   S a d l y   I t   T o o k   H i m   3   H o u r s   T o   T y p e   I t   O u t.   S o   N o w   B o t h   H i m   A n d   E v e r y o n e   E l s e   C a n   T y p e   L i k e   T h i s</p>
         </div>
     </div>
     <div class="container" id="tool">
         <div class="row">
             <div class="col-md-6">
                 <h2>Input</h2>
-                <textarea id="textBox" name="text" rows="10" cols="50"></textarea>
+                <textarea id="textBox" name="text" rows="10" cols="50">Try it out..</textarea>
                 <br>
 
             </div>
@@ -70,6 +71,10 @@
     <script>
         var notifier = new Notifier();
         document.getElementById('textBox').onkeyup = function () {
+            fixText()
+        };
+        fixText()
+        function fixText(){
             let text = document.getElementById("textBox").value;
             text = (text.replace(/\s/g, "▒"));
             text = camelize(text)
@@ -81,16 +86,20 @@
             text = text.charAt(0).toUpperCase() + text.slice(1)
             document.getElementById("result").value = text;
             document.getElementById("resultHidden").value = text;
-        };
+        }
         function camelize(str) {
             return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
                 return index === 0 ? word.toLowerCase() : word.toUpperCase();
             }).replace(/\s+/g, '');
         }
         document.getElementById('copy').onclick = function () {
-            document.getElementById("resultHidden").select();
-            document.execCommand("Copy");
-            notifier.notify("success", "Successfully copied!");
+            if(document.getElementById("resultHidden").value.length > 0){
+                document.getElementById("resultHidden").select();
+                document.execCommand("Copy");
+                notifier.notify("success", "Successfully copied!",1000);
+            }else{
+                notifier.notify("error", "No text to copy",1000);
+            }
         };
     </script>
 </body>
