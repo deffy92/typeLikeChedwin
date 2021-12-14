@@ -59,14 +59,16 @@
 
             <div class="col-md-6">
                 <h2>Result</h2>
-                <textarea id="result" rows="10" cols="50">
-                </textarea>
+                <textarea id="result" rows="10" cols="50" disabled ></textarea>
+                <textarea id="resultHidden" rows="10" cols="50" style="height:0px;width:0px; position:absolute; top: -200px" ></textarea>
                 <br>
                 <button id="copy">Copy to clipboard</button>
             </div>
         </div>
     </div>
+    <script src="notifier.js"></script>
     <script>
+        var notifier = new Notifier();
         document.getElementById('textBox').onkeyup = function () {
             let text = document.getElementById("textBox").value;
             text = (text.replace(/\s/g, "▒"));
@@ -78,6 +80,7 @@
             text = text.replace(/▒/g, "  ")
             text = text.charAt(0).toUpperCase() + text.slice(1)
             document.getElementById("result").value = text;
+            document.getElementById("resultHidden").value = text;
         };
         function camelize(str) {
             return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
@@ -85,8 +88,9 @@
             }).replace(/\s+/g, '');
         }
         document.getElementById('copy').onclick = function () {
-            document.getElementById("result").select();
+            document.getElementById("resultHidden").select();
             document.execCommand("Copy");
+            notifier.notify("success", "Successfully copied!");
         };
     </script>
 </body>
