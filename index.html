@@ -37,6 +37,109 @@
             padding: 20px;
             text-align: center;
         }
+
+        .form__group {
+            position: relative;
+            padding: 15px 0 0;
+            margin-top: 10px;
+        }
+
+        .form__field {
+            font-family: inherit;
+            width: 100%;
+            border: 0;
+            border-bottom: 1px solid #d2d2d2;
+            outline: 0;
+            font-size: 16px;
+            padding: 7px 0;
+            background: transparent;
+            transition: border-color 0.2s;
+        }
+
+        .form__field::placeholder {
+            color: transparent;
+        }
+
+        .form__field:placeholder-shown~.form__label {
+            font-size: 16px;
+            cursor: text;
+            top: 20px;
+        }
+
+        label,
+        .form__field:focus~.form__label {
+            position: absolute;
+            top: 0;
+            display: block;
+            transition: 0.2s;
+            font-size: 12px;
+            color: #9b9b9b;
+        }
+
+        .form__field:focus~.form__label {
+            color: #009788;
+        }
+
+        .form__field:focus {
+            padding-bottom: 6px;
+            border-bottom: 2px solid #009788;
+        }
+
+        .btn {
+            display: block;
+            margin-right: 0px;
+            margin-left:auto;
+            padding: 0;
+
+            overflow: hidden;
+
+            border-width: 0;
+            outline: none;
+            border-radius: 2px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+
+            background-color: #2ecc71;
+            color: #2b2b2b;
+
+            transition: background-color .3s;
+        }
+
+        .btn:hover,
+        .btn:focus {
+            background-color: #1d8046;
+        }
+
+        .btn>* {
+            position: relative;
+        }
+
+        .btn span {
+            display: block;
+            padding: 12px 24px;
+        }
+
+        .btn:before {
+            content: "";
+
+            position: absolute;
+            top: 50%;
+            left: 50%;
+
+            display: block;
+            width: 0;
+            padding-top: 0;
+
+            border-radius: 100%;
+
+            background-color: rgba(236, 240, 241, .3);
+
+            -webkit-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -o-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
     </style>
 </head>
 
@@ -44,26 +147,33 @@
     <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center" id="header">
         <div class="bg-image"></div>
         <div class="bg-text">
-            <h1>T y p e   L i k e   C h e d w i n</h1>
-            <p>H a v e   Y o u   E v e r   W i s h e d   Y o u   W h e r e   A s   C o o l   A s   H i m?   N o w   Y o u   C a n   B e!</p>
-            <p>T h i s   T o o l   W a s   C r e a t e d   B e c a u s e   <a target="_blank" href="https://www.twitch.tv/thechedwin">T h e C h e d w i n</a>     C a m e   I n t o   <a target="_blank" href="https://www.twitch.tv/vombuz">V o m b u z' S</a>   C h a t   T y p i n g   L i k e   T h i s,   B u t   S a d l y   I t   T o o k   H i m   3   H o u r s   T o   T y p e   I t   O u t.   S o   N o w   B o t h   H i m   A n d   E v e r y o n e   E l s e   C a n   T y p e   L i k e   T h i s!</p>
+            <h1>T y p e L i k e C h e d w i n</h1>
+            <p>H a v e Y o u E v e r W i s h e d Y o u W h e r e A s C o o l A s H i m? N o w Y o u C a n B e!</p>
+            <p>T h i s T o o l W a s C r e a t e d B e c a u s e <a target="_blank"
+                    href="https://www.twitch.tv/thechedwin">T h e C h e d w i n</a> C a m e I n t o <a target="_blank"
+                    href="https://www.twitch.tv/vombuz">V o m b u z' S</a> C h a t T y p i n g L i k e T h i s, B u t S
+                a d l y I t T o o k H i m 3 H o u r s T o T y p e I t O u t. S o N o w B o t h H i m A n d E v e r y o n
+                e E l s e C a n T y p e L i k e T h i s!</p>
         </div>
     </div>
     <div class="container" id="tool">
         <div class="row">
             <div class="col-md-6">
-                <h2>Input</h2>
-                <textarea id="textBox" name="text" rows="10" cols="50">Try it out..</textarea>
-                <br>
-
+                <div class="form__group">
+                    <textarea id="textBox" class="form__field" placeholder="" rows="6"></textarea>
+                    <label for="textBox" class="form__label">Your Message</label>
+                </div>
             </div>
 
             <div class="col-md-6">
-                <h2>Result</h2>
-                <textarea id="result" rows="10" cols="50" disabled ></textarea>
-                <textarea id="resultHidden" rows="10" cols="50" style="height:0px;width:0px; position:absolute; top: -200px" ></textarea>
+                <div class="form__group">
+                    <textarea id="result" class="form__field" placeholder="" rows="6" disabled></textarea>
+                    <label for="result" class="form__label">Result</label>
+                </div>
+                <textarea id="resultHidden" rows="10" cols="50"
+                    style="height:0px;width:0px; position:absolute; top: -200px"></textarea>
                 <br>
-                <button id="copy">Copy to clipboard</button>
+                <button id="copy" class="btn" type="button"><span>Copy the the Chedwin text</span></button>
             </div>
         </div>
     </div>
@@ -74,7 +184,7 @@
             fixText()
         };
         fixText()
-        function fixText(){
+        function fixText() {
             let text = document.getElementById("textBox").value;
             text = (text.replace(/\s/g, "▒"));
             text = camelize(text)
@@ -93,12 +203,12 @@
             }).replace(/\s+/g, '');
         }
         document.getElementById('copy').onclick = function () {
-            if(document.getElementById("resultHidden").value.length > 0){
+            if (document.getElementById("resultHidden").value.length > 0) {
                 document.getElementById("resultHidden").select();
                 document.execCommand("Copy");
-                notifier.notify("success", "Successfully copied!",1000);
-            }else{
-                notifier.notify("error", "No text to copy",1000);
+                notifier.notify("success", "Successfully copied!", 1000);
+            } else {
+                notifier.notify("error", "No text to copy", 1000);
             }
         };
     </script>
